@@ -8,7 +8,7 @@
 </p>
 
 ## About Laravel
-https://sistemapedidosfront.herokuapp.com/ DIRECCION DE LA APLICACION DEL LADO DEL FRONTEND
+http://sistemapedidosfront.herokuapp.com/ DIRECCION DE LA APLICACION DEL LADO DEL FRONTEND
 <a href="http://sistemapedidosfront.herokuapp.com/">CLICK TO OPEN LINK</a>
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 

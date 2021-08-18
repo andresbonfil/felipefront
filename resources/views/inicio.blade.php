@@ -14,5 +14,5 @@
 @endsection
 
 @section('piedepagina')
-<a href="#">Mis redes sociales</a>
+<a href="#">Mis redes sociales ;)</a>
 @endsection
