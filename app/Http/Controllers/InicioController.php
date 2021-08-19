@@ -22,7 +22,7 @@ class InicioController extends Controller
         
         if($dato->estatus=='Aprobado'){
             
-            return 'login exitoso puede redireccionar al panel deseado';
+            return 'login exitoso puede redireccionar al panel deseado esperamos retonro';
         }
         if($dato->estatus=='Rechazado'){
             return 'la solicitud de incio de sesion fue rechazada';
