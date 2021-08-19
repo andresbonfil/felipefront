@@ -9,9 +9,9 @@ class InicioController extends Controller
 {
     //FUNCION LOGIN
     public function login (Request $request){
-        if(session('alias')==null){
-            return view('inicio'); 
-        }
+       // if(session('alias')==null){
+       //     return view('inicio'); 
+       // }
 
         $respuesta = Http::post('https://sistemapedidosback.herokuapp.com/api/usuario/login', [
             'email' => $request->email,
@@ -21,7 +21,8 @@ class InicioController extends Controller
         $dato=json_decode($respuesta);
         
         if($dato->estatus=='Aprobado'){
-            
+            session(['alias' => $dato->alias]);
+            session(['tipoc' => $dato->tipoc]);            
             return 'login exitoso puede redireccionar al panel deseado esperamos retonro';
         }
         if($dato->estatus=='Rechazado'){
