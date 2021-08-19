@@ -7,6 +7,33 @@ use Illuminate\Support\Facades\Http;
 
 class InicioController extends Controller
 {
+    //FUNCION LOGIN
+    public function login (Request $request){
+        if(session('alias')==null){
+            return view('inicio'); 
+        }
+
+        $respuesta = Http::post('https://sistemapedidosback.herokuapp.com/api/usuario/login', [
+            'email' => $request->email,
+            'password' => $request->password
+        ]);
+
+        $dato=json_decode($respuesta);
+        
+        if($dato->estatus=='Aprobado'){
+            
+            return 'login exitoso puede redireccionar al panel deseado';
+        }
+        if($dato->estatus=='Rechazado'){
+            return 'la solicitud de incio de sesion fue rechazada';
+        }        
+        return 'Ocurrio un problema con la petición';
+    }
+
+
+    //ESTA FUNCION RECIBE LA PETICION DE REGISTRARSE RECIBE EL REQUEST DEL FORMULARIO DE REGISTRO
+    //Y LE MANDA LOS PARAMETROS AL BACKEND PARA PROBAR QUE NO EXISTA YA UN USUARIO REGISTRADO
+    //SI TE REGISTRA O NO TE AVISA Y TE REGRESA UN ENLACE DE RETORNO.
     public function registrarsePost(Request $request){
         $respuesta =
         Http::post('https://sistemapedidosback.herokuapp.com/api/usuario', [
@@ -29,6 +56,10 @@ class InicioController extends Controller
         return 'Ocurrio un problema con la petición';
     }
     
+
+    //ESTA FUNCION ATIENDE LA PETICION DE RECUPERAR CONTRASEÑA RECIBE EL PARAMETRO
+    //DE EMAIL EL CUAL SE LO MANDA AL BACKEND PARA VALIDARLO SI PASA LAS PRUEBAS DEL
+    //BACKEND ENVIA INSTRUCCIONES A ESE CORREO CON UN TOKEN SI NO TE AVISA QUE TE REGISTRES
     public function recontraPost(Request $request){
         $respuesta =
         Http::post('https://sistemapedidosback.herokuapp.com/api/usuario/recontra', [

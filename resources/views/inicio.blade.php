@@ -3,9 +3,9 @@
 
 @section('articulo1','Iniciar Sesión')
 @section('articulo2')
-  <form action="#" metod="POST">
-  <br>Correo Electronico:<input name="txtCorreo" type="text">
-  <br>Contraseña:<input type="password" name="txtContrasena"id="pass">
+  <form action="{{route('login')}}" metod="POST">
+  <br>Correo Electronico:<input name="email" type="text">
+  <br>Contraseña:<input type="password" name="password"id="pass">
   <input type="button" value="Ver" onclick="verPass()">
   <br><input type="submit" value="Ingresar"><br>
   </form>
