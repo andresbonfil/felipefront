@@ -10,7 +10,7 @@
 
   </form>
   <br>ES UTED UN COMPRADOR
-  <H1><a href="{{route('logout'}}">CERRAR SESION</a></H1>
+  <H1><a href="{{route('logout')}}">CERRAR SESION</a></H1>
 
   
 @endsection
