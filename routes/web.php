@@ -13,3 +13,5 @@ Route::post('recontraPost', [InicioController::class, 'recontraPost'])->name('re
 Route::get('comprador', function () { return view('comprador.inicio'); })->name('vendedor');
 
 Route::get('vendedor', function () { return view('vendedor.inicio'); })->name('comprador');
+
+Route::get('logout', [InicioController::class, 'logout'])->name('logout');

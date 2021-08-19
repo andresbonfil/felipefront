@@ -7,29 +7,40 @@ use Illuminate\Support\Facades\Http;
 
 class InicioController extends Controller
 {
-    public function __invoke(){ return view('inicio'); }
+    public function __invoke(){ 
+        if(session('alias')==null){
+            return view('inicio'); 
+        }
+        if(session('tipoc')=='Comprador'){ return view('comprador.inicio'); }
+        if(session('alias')=='Vendedor') { return view('vendedor.inicio'); }
+    }
 
     //FUNCION LOGIN
     public function inicioPost (Request $request){
-       // if(session('alias')==null){
-       //     return view('inicio'); 
-       // }
-        $respuesta = Http::post('https://sistemapedidosback.herokuapp.com/api/usuario/login', [
-            'email' => $request->email,
-            'password' => $request->password
-        ]);
+        if(session('alias')==null){       
+            $respuesta = Http::post('https://sistemapedidosback.herokuapp.com/api/usuario/login', [
+                'email' => $request->email,
+                'password' => $request->password
+            ]);
 
-        $dato=json_decode($respuesta);
-        
-        if($dato->estatus=='Aprobado'){
-            if($dato->tipoc=='Comprador'){ return view('comprador.inicio'); }
-            if($dato->tipoc=='Vendedor') { return view('vendedor.inicio'); }
+            $dato=json_decode($respuesta);
+            
+            if($dato->estatus=='Aprobado'){
+                session(['alias' => $dato->alias]);
+                session(['tipoc' => $dato->tipoc]);
+                if($dato->tipoc=='Comprador'){ return view('comprador.inicio'); }
+                if($dato->tipoc=='Vendedor') { return view('vendedor.inicio'); }
+            }
+            if($dato->estatus=='Rechazado'){
+                return 'la solicitud de incio de sesion fue rechazada
+                <br>Da click en el enlace para <h1><a href="../">Regresar</a></h1>';
+            }
         }
-        if($dato->estatus=='Rechazado'){
-            return 'la solicitud de incio de sesion fue rechazada
-            <br>Da click en el enlace para <h1><a href="../">Regresar</a></h1>';
-        }        
-        return 'Ocurrio un problema con la petición';
+        else{
+            if(session('tipoc')=='Comprador'){ return view('comprador.inicio'); }
+            if(session('tipoc')=='Vendedor'){ return view('vendedor.inicio'); }
+        }     
+        return 'algo salio mal';
     }
 
 
@@ -81,5 +92,7 @@ class InicioController extends Controller
         }        
         return 'Ocurrio un problema con la petición';
     }
+
+    public function logout(){ Session::flush(); return redirect()->route('inicio'); }
 
 }
