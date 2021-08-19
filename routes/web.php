@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InicioController;
 
+
 Route::get('/', InicioController::class)->name('inicio');
 Route::get('registrarse', function () { return view('registrarse'); })->name('registrarse');
 Route::get('recontra', function () { return view('recontra'); })->name('recontra');
