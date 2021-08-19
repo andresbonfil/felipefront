@@ -3,7 +3,7 @@
 
 @section('articulo1','Iniciar Sesión')
 @section('articulo2')
-  <form action="{{route('login')}}" metod="POST">
+  <form action="{{route('inicioPost')}}" method="POST">
   @csrf
   <br>Correo Electronico:<input name="email" type="text">
   <br>Contraseña:<input type="password" name="password"id="pass">

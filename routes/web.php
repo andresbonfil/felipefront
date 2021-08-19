@@ -6,7 +6,7 @@ Route::get('/', InicioController::class)->name('inicio');
 Route::get('registrarse', function () { return view('registrarse'); })->name('registrarse');
 Route::get('recontra', function () { return view('recontra'); })->name('recontra');
 
-Route::post('login', [InicioController::class, 'login'])->name('login');
+Route::post('/', [InicioController::class, 'inicioPost'])->name('inicioPost');
 Route::post('registrarse', [InicioController::class, 'registrarsePost'])->name('registrarsePost');
 Route::post('recontraPost', [InicioController::class, 'recontraPost'])->name('recontraPost');
 
