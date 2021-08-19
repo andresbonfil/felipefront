@@ -10,7 +10,7 @@ class InicioController extends Controller
     public function __invoke(){ return view('inicio'); }
 
     //FUNCION LOGIN
-    public function login (Request $request){
+    public function inicioPost (Request $request){
        // if(session('alias')==null){
        //     return view('inicio'); 
        // }
