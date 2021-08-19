@@ -12,8 +12,8 @@
         <hr>
         <ul>
             <li><a href="{{route('inicio')}}">Inicio</a></li>
-            <li><a href="">Contactanos</a></li>
-            <li><a href="">Acerca de</a></li>
+            <li><a href="http://uxproyect.000webhostapp.com/contacto.html">Contactanos</a></li>
+            <li><a href="http://uxproyect.000webhostapp.com/nosotros.html">Acerca de</a></li>
         </ul>
     </nav>    
     <article>
