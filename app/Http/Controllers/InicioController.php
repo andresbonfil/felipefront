@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Http;
 
 class InicioController extends Controller
 {
+    public function __invoke(){ return view('inicio'); }
+
     //FUNCION LOGIN
     public function login (Request $request){
        // if(session('alias')==null){
@@ -22,7 +24,7 @@ class InicioController extends Controller
         if($dato->estatus=='Aprobado'){
             //session(['alias' => $dato->alias]);
             //session(['tipoc' => $dato->tipoc]);            
-            return 'login exitoso puede redireccionar al panel deseado esperamos retonro';
+            return view('comprador.inicio');
         }
         if($dato->estatus=='Rechazado'){
             return 'la solicitud de incio de sesion fue rechazada';
