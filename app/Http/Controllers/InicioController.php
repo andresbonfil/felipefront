@@ -22,12 +22,12 @@ class InicioController extends Controller
         $dato=json_decode($respuesta);
         
         if($dato->estatus=='Aprobado'){
-            //session(['alias' => $dato->alias]);
-            //session(['tipoc' => $dato->tipoc]);            
-            return view('comprador.inicio');
+            if($dato->tipoc=='Comprador'){ return view('comprador.inicio'); }
+            if($dato->tipoc=='Vendedor') { return view('vendedor.inicio'); }
         }
         if($dato->estatus=='Rechazado'){
-            return 'la solicitud de incio de sesion fue rechazada';
+            return 'la solicitud de incio de sesion fue rechazada
+            <br>Da click en el enlace para <h1><a href="../">Regresar</a></h1>';
         }        
         return 'Ocurrio un problema con la petición';
     }
