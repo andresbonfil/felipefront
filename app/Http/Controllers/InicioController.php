@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 class InicioController extends Controller
 {
+<<<<<<< HEAD
     public function loginPost(Request $request){
         
         $respuesta =
@@ -26,6 +27,48 @@ class InicioController extends Controller
         return 'Ocurrio un problema con la petición';
     }
 
+=======
+    public function __invoke(){ 
+        if(session('alias')==null){
+            return view('inicio'); 
+        }
+        if(session('tipoc')=='Comprador'){ return view('comprador.inicio'); }
+        if(session('alias')=='Vendedor') { return view('vendedor.inicio'); }
+    }
+
+    //FUNCION LOGIN
+    public function inicioPost (Request $request){
+        if(session('alias')==null){       
+            $respuesta = Http::post('https://sistemapedidosback.herokuapp.com/api/usuario/login', [
+                'email' => $request->email,
+                'password' => $request->password
+            ]);
+
+            $dato=json_decode($respuesta);
+            
+            if($dato->estatus=='Aprobado'){
+                session(['alias' => $dato->alias]);
+                session(['tipoc' => $dato->tipoc]);
+                if($dato->tipoc=='Comprador'){ return view('comprador.inicio'); }
+                if($dato->tipoc=='Vendedor') { return view('vendedor.inicio'); }
+            }
+            if($dato->estatus=='Rechazado'){
+                return 'la solicitud de incio de sesion fue rechazada
+                <br>Da click en el enlace para <h1><a href="../">Regresar</a></h1>';
+            }
+        }
+        else{
+            if(session('tipoc')=='Comprador'){ return view('comprador.inicio'); }
+            if(session('tipoc')=='Vendedor'){ return view('vendedor.inicio'); }
+        }     
+        return 'algo salio mal';
+    }
+
+
+    //ESTA FUNCION RECIBE LA PETICION DE REGISTRARSE RECIBE EL REQUEST DEL FORMULARIO DE REGISTRO
+    //Y LE MANDA LOS PARAMETROS AL BACKEND PARA PROBAR QUE NO EXISTA YA UN USUARIO REGISTRADO
+    //SI TE REGISTRA O NO TE AVISA Y TE REGRESA UN ENLACE DE RETORNO.
+>>>>>>> 49766a00134158ddca5fff8198d9f4e13d958564
     public function registrarsePost(Request $request){
         $respuesta =
         Http::post('https://sistemapedidosback.herokuapp.com/api/usuario', [
@@ -48,6 +91,10 @@ class InicioController extends Controller
         return 'Ocurrio un problema con la petición';
     }
     
+
+    //ESTA FUNCION ATIENDE LA PETICION DE RECUPERAR CONTRASEÑA RECIBE EL PARAMETRO
+    //DE EMAIL EL CUAL SE LO MANDA AL BACKEND PARA VALIDARLO SI PASA LAS PRUEBAS DEL
+    //BACKEND ENVIA INSTRUCCIONES A ESE CORREO CON UN TOKEN SI NO TE AVISA QUE TE REGISTRES
     public function recontraPost(Request $request){
         $respuesta =
         Http::post('https://sistemapedidosback.herokuapp.com/api/usuario/recontra', [
@@ -67,5 +114,7 @@ class InicioController extends Controller
         }        
         return 'Ocurrio un problema con la petición';
     }
+
+    public function logout(){ Session::flush(); return redirect()->route('inicio'); }
 
 }

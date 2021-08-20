@@ -12,7 +12,7 @@
   <input type="button" value="Ver" onclick="verPass()">
   <br><input type="submit" value="Registrarse"><br>
   </form>
-  <br>¿Olvidaste tu contraseña?<br><a href="recontra">Recuperar contraseña</a>
+  <br>¿Olvidaste tu contraseña?<br><a href="{{route('recontra')}}">Recuperar contraseña</a>
   
 @endsection
 
