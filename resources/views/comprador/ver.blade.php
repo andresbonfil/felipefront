@@ -8,7 +8,7 @@ Bienvenido comprador:
 @endsection
 @section('articulo2')
 <table border=1>
-    <tr><th colspan="9">Productos de - [ {{$vender['nombre']}} ] - FOLIO: {{$dato->folio ?? $dato->id}}</th></tr>
+    <tr><th colspan="9">Productos de - [ {{$vender['nombre']}} ?? "" ] - FOLIO: {{$dato->folio ?? $dato->id}}</th></tr>
     <tr>
       <th>nombre</th><th>descripcion</th><th>pu</th><th>pe</th><th>cpe</th>
       <th>dis</th><th>cant</th><th>agregar</th>
