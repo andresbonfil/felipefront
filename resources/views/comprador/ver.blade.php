@@ -4,13 +4,11 @@
 
 @section('articulo1')
 Bienvenido comprador:
-<?php if(isset(session('alias'))){
-      echo session('alias');
-       }?>
+<?php echo session('alias'); ?>
 @endsection
 @section('articulo2')
 <table border=1>
-    <tr><th colspan="9">Productos de - [ {{$vender['nombre']}} ] - FOLIO: {{$dato->folio ?? $dato->id}}</th></tr>
+    <tr><th colspan="9">Productos de - [ {{$vender['nombre']}} ] - </th></tr>
     <tr>
       <th>nombre</th><th>descripcion</th><th>pu</th><th>pe</th><th>cpe</th>
       <th>dis</th><th>cant</th><th>agregar</th>
@@ -39,9 +37,9 @@ Bienvenido comprador:
 <br>
 
 <table border=1>
-    <tr><th colspan="5">remision</th></tr>
+    <tr><th colspan="5">NOTA REMISION - - FOLIO NO. {{$dato->folio ?? $dato->id}}</th></tr>
     <tr>
-      <th>cant.</th><th>producto</th><th>pu</th><th>importe</th>
+      <th>cant</th><th>producto</th><th>precio</th><th>importe</th>
     </tr>
     @isset($detalle)
     
