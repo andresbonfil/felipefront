@@ -5,7 +5,7 @@
 @section('articulo1')
 Bienvenido comprador:
 <?php if(isset(session('alias')){
-      echo session('alias') ); ?>
+      echo session('alias') ); }?>
 @endsection
 @section('articulo2')
 <table border=1>
