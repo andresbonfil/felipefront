@@ -22,7 +22,7 @@ Bienvenido comprador:
         <td>{{$lista->cpe}}</td>
         <td>{{$lista->disponible}}</td>
         <td>
-            <input name="cant" type="number" size="3" min="0" onchange="multiplicar()">
+            <input name="cant" type="number" size="3" min="1" onchange="multiplicar()">
             <input name="producto" type="hidden" value="{{$lista->nombre}}">
             <input name="precio" type="hidden" value="{{$lista->pu}}">
             <input name="folio" type="hidden" value="{{$dato->folio ?? $dato->id}}">
