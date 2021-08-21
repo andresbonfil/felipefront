@@ -1,10 +1,11 @@
-
+<?php $totalo=0; ?>
 @extends('layouts.plantilla')
 @section('titulo','COMPRADOR')
 
 @section('articulo1')
 Bienvenido comprador:
-<?php echo session('alias'); ?>
+<?php if(isset(session('alias')){
+      echo session('alias') ); ?>
 @endsection
 @section('articulo2')
 <table border=1>
@@ -35,7 +36,7 @@ Bienvenido comprador:
   </table>
 
 <br>
-<?php $totalo=0; ?>
+
 <table border=1>
     <tr><th colspan="5">remision</th></tr>
     <tr>
