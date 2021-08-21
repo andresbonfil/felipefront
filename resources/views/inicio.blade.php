@@ -1,14 +1,12 @@
 @extends('layouts.plantilla')
 @section('titulo','Sistema Pedidos')
 
-@section('articulo1','Iniciar Sesión')
+@section('articulo1')
+{{session('alias') ?? 'Iniciar sesion'}}
+@endsection
 @section('articulo2')
-<<<<<<< HEAD
-  <form action="{{route('loginPost')}}" metod="POST">
-=======
   <form action="{{route('inicioPost')}}" method="POST">
   @csrf
->>>>>>> 49766a00134158ddca5fff8198d9f4e13d958564
   <br>Correo Electronico:<input name="email" type="text">
   <br>Contraseña:<input type="password" name="password"id="pass">
   <input type="button" value="Ver" onclick="verPass()">
