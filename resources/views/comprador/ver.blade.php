@@ -1,4 +1,4 @@
-<?php $totalo=0; ?>
+
 @extends('layouts.plantilla')
 @section('titulo','COMPRADOR')
 
@@ -8,7 +8,7 @@ Bienvenido comprador:
 @endsection
 @section('articulo2')
 <table border=1>
-    <tr><th colspan="9">Productos de - [ {{$vender['nombre'] ?? ""}} ] - FOLIO: {{$dato->folio ?? $dato->id}}</th></tr>
+    <tr><th colspan="9">Productos de - [ {{$vender['nombre']}} ] - FOLIO: {{$dato->folio ?? $dato->id}}</th></tr>
     <tr>
       <th>nombre</th><th>descripcion</th><th>pu</th><th>pe</th><th>cpe</th>
       <th>dis</th><th>cant</th><th>agregar</th>
@@ -35,7 +35,7 @@ Bienvenido comprador:
   </table>
 
 <br>
-
+<?php $totalo=0; ?>
 <table border=1>
     <tr><th colspan="5">remision</th></tr>
     <tr>
