@@ -10,7 +10,7 @@ class VendedorController extends Controller
     public function addproducto(Request $request){
         //return $request;
         
-        $respuesta = Http::post('http://127.0.0.1:8000/api/producto', [
+        $respuesta = Http::post('http://sistemapedidosback.herokuapp.com/api/producto', [
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
             'pu' => $request->pu,
@@ -22,7 +22,7 @@ class VendedorController extends Controller
         $dato=json_decode($respuesta);
         
         if($dato->estatus=="Aprobado"){   
-            $respuesta2 = Http::get('http://127.0.0.1:8000/api/productoprovedor?idprovedor='.session('id'));
+            $respuesta2 = Http::get('http://sistemapedidosback.herokuapp.com/api/productoprovedor?idprovedor='.session('id'));
             $listaproductos=json_decode($respuesta2);
             return view('vendedor.inicio',compact('dato','listaproductos')); }
         else{return $respuesta;}

@@ -19,7 +19,7 @@ class InicioController extends Controller
     //FUNCION LOGIN
     public function inicioPost (Request $request){
         if(session('alias')==null){       
-            $respuesta = Http::post('http://127.0.0.1:8000/api/usuario/login', [
+            $respuesta = Http::post('http://sistemapedidosback.herokuapp.com/api/usuario/login', [
                 'email' => $request->email,
                 'password' => $request->password
             ]);
@@ -29,12 +29,12 @@ class InicioController extends Controller
                 session(['alias' => $dato->alias]);
                 session(['tipoc' => $dato->tipoc]);                
                 if($dato->tipoc=='Comprador'){ 
-                    $respuesta2 = Http::get('http://127.0.0.1:8000/api/vendedor');
+                    $respuesta2 = Http::get('http://sistemapedidosback.herokuapp.com/api/vendedor');
                     $listavendedores=json_decode($respuesta2);
                     return view('comprador.inicio', compact('listavendedores')); 
                 }
                 if($dato->tipoc=='Vendedor'){ 
-                    $respuesta2 = Http::get('http://127.0.0.1:8000/api/productoprovedor?idprovedor='.$dato->id);
+                    $respuesta2 = Http::get('http://sistemapedidosback.herokuapp.com/api/productoprovedor?idprovedor='.$dato->id);
                     $listaproductos=json_decode($respuesta2);
                     return view('vendedor.inicio', compact('listaproductos'));
                 }
@@ -47,12 +47,12 @@ class InicioController extends Controller
         else{
 
             if(session('tipoc')=='Comprador'){
-                $respuesta2 = Http::get('http://127.0.0.1:8000/api/vendedor');
+                $respuesta2 = Http::get('http://sistemapedidosback.herokuapp.com/api/vendedor');
                 $listavendedores=json_decode($respuesta2);
                 return view('comprador.inicio', compact('listavendedores')); 
             }
             if(session('tipoc')=='Vendedor'){ 
-                $respuesta2 = Http::get('http://127.0.0.1:8000/api/productoprovedor?idprovedor='.session('id'));
+                $respuesta2 = Http::get('http://sistemapedidosback.herokuapp.com/api/productoprovedor?idprovedor='.session('id'));
                 $listaproductos=json_decode($respuesta2);
                 return view('vendedor.inicio', compact('listaproductos')); }
         }     
@@ -65,7 +65,7 @@ class InicioController extends Controller
     //SI TE REGISTRA O NO TE AVISA Y TE REGRESA UN ENLACE DE RETORNO.
     public function registrarsePost(Request $request){
         $respuesta =
-        Http::post('http://127.0.0.1:8000/api/usuario', [
+        Http::post('http://sistemapedidosback.herokuapp.com/api/usuario', [
             'txtNombre' => $request->nombre,
             'txtTipoc' => $request->tipoc,
             'txtEmail' => $request->email,
@@ -91,7 +91,7 @@ class InicioController extends Controller
     //BACKEND ENVIA INSTRUCCIONES A ESE CORREO CON UN TOKEN SI NO TE AVISA QUE TE REGISTRES
     public function recontraPost(Request $request){
         $respuesta =
-        Http::post('http://127.0.0.1:8000/api/usuario/recontra', [
+        Http::post('http://sistemapedidosback.herokuapp.com/api/usuario/recontra', [
             'txtEmail' => $request->email
         ]);
         $dato=json_decode($respuesta);
