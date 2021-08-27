@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use App\Mail\cotizaEmail;
+use Illuminate\Support\Facades\Mail;
+
 
 class CompradorController extends Controller
 {
@@ -41,5 +44,35 @@ class CompradorController extends Controller
         $res = json_decode($respuesta);
         $dato=$res[0];
         return view('comprador.ver', compact('productosvender','vender','dato','detalle'));
+    }
+
+    public function enviarcotiz(Request $request){
+        $respuesta = Http::get('http://127.0.0.1:8000/api/detalle/'.$request->folio);
+        $detalle = json_decode($respuesta);
+        $respuesta = Http::get('http://127.0.0.1:8000/api/usuario/'.$request->idprovedor);
+        $vendedor = json_decode($respuesta);
+        $folio=$request->folio;
+        $pdf=\PDF::loadView('pdf.prueba', compact('detalle','vendedor','folio'));
+        
+        $output = $pdf->output();
+                
+        $correo=new cotizaEmail($output);
+
+        Mail::to($vendedor->email)->send($correo); 
+        Mail::to(session('email'))->send($correo); 
+        return $pdf->stream('archivox.pdf');
+        
+    }
+
+    public function verpedidos(){
+        $respuesta = Http::get('http://127.0.0.1:8000/api/cotizacion/'.session('id'));
+        $listapedidos=json_decode($respuesta);
+        return view('comprador.pedidos', compact('listapedidos'));
+    }
+    public function verdetalles($id){
+        $respuesta = Http::get('http://127.0.0.1:8000/api/detalle/'.$id);
+        $listadetalles=json_decode($respuesta);
+        //return $listadetalles;
+        return view('comprador.detalles', compact('listadetalles','id'));
     }
 }

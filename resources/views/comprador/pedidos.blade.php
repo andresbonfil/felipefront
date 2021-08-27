@@ -2,25 +2,22 @@
 @section('titulo','COMPRADOR')
 
 @section('articulo1')
-Bienvenido comprador:
+Pedidos de :
 <?php echo session('alias'); ?>
-: <a href="{{route('pedidos')}}">pedidos</a>
 @endsection
 @section('articulo2')
 <table border=1>
-  <tr><th colspan="5"> Lista de vendedores:</th></tr>
+  <tr><th colspan="5"> Lista de pedidos:</th></tr>
   <tr>
-    <th>id</th>
-    <th>nombre</th>
-    <th>email</th>
-    <th>Cotizar</th>      
+    <th>folio</th>
+    <th>fecha</th>  
+    <th>detalle</th> 
   </tr>
-  @foreach($listavendedores as $lista)
+  @foreach($listapedidos as $lista)
     <tr>
         <td>{{$lista->id}}</td>
-        <td>{{$lista->nombre}}</td>
-        <td>{{$lista->email}}</td>
-        <td><a href="{{route('vervender', $lista->id)}}">$$$$$</a></td>
+        <td>{{$lista->created_at}}</td>
+        <td><a href="{{route('detalles', $lista->id)}}">ver</a></td>
     </tr>
   @endforeach
   

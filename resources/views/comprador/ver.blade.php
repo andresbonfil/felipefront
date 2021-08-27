@@ -8,7 +8,7 @@ Bienvenido comprador:
 @endsection
 @section('articulo2')
 <table border=1>
-    <tr><th colspan="9">Productos de - [ {{$vender['nombre']}} ] - </th></tr>
+    <tr><th colspan="9">Productos de : [ {{$vender['nombre']}} ] </th></tr>
     <tr>
       <th>nombre</th><th>descripcion</th><th>pu</th><th>pe</th><th>cpe</th>
       <th>dis</th><th>cant</th><th>agregar</th>
@@ -56,9 +56,15 @@ Bienvenido comprador:
     <tr>
         <td>*</td><td>*********</td><td colspan='2'>total $<?php echo $totalo; ?></td>
     </tr> 
+    <tr>
+        <td colspan="5">Enviar esta cotización: <form action="{{route('enviarcotiz')}}" method="get">
+        <input type="hidden" name="folio" value="{{$dato->folio ?? $dato->id}}">
+        <input type="hidden" name="idprovedor" value="{{$lista->idprovedor}}">
+        <input type="submit">
+        </form></td>
+    </tr>
   
   </table>
-
 
 @endsection
  

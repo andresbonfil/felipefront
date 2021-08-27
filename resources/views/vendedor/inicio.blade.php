@@ -4,6 +4,7 @@
 @section('articulo1')
 Binvenido vendedor:
 <?php echo session('alias'); ?>
+: <a href="{{route('pedidosvendor')}}">pedidos</a>
 @endsection
 @section('articulo2')
 {{$dato->estatus ?? ''}} {{$dato->info ?? ''}}

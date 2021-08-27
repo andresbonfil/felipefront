@@ -13,7 +13,12 @@ Route::post('recontraPost', [InicioController::class, 'recontraPost'])->name('re
 Route::get('logout', [InicioController::class, 'logout'])->name('logout');
 //-------------------------------------------------------------------------------------------
 Route::post('addproducto',[VendedorController::class, 'addproducto'])->name('addproducto');
+Route::get('pedidosvendor',[VendedorController::class, 'verpedidos'])->name('pedidosvendor');
+Route::get('detallesvendor/{id}',[VendedorController::class, 'verdetalles'])->name('detallesvendor');
 //-------------------------------------------------------------------------------------------
 Route::get('vervender/{id}',[CompradorController::class, 'vervender'])->name('vervender');
 Route::post('add2detalle',[CompradorController::class, 'add2detalle'])->name('add2detalle');
+Route::get('enviarcotiz',[CompradorController::class, 'enviarcotiz'])->name('enviarcotiz');
+Route::get('pedidos',[CompradorController::class, 'verpedidos'])->name('pedidos');
+Route::get('detalles/{id}',[CompradorController::class, 'verdetalles'])->name('detalles');
 
