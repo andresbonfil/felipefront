@@ -11,12 +11,12 @@ use Illuminate\Support\Facades\Mail;
 class CompradorController extends Controller
 {
     public function vervender($id){
-        $respuesta = Http::get('http://127.0.0.1:8000/api/productoprovedor?idprovedor='.$id);
-        //$respuesta=Http::get('http://127.0.0.1:8000/api/venderproductos/'.$id); //otra manera
+        $respuesta = Http::get('http://sistemapedidosback.herokuapp.com/api/productoprovedor?idprovedor='.$id);
+        //$respuesta=Http::get('http://sistemapedidosback.herokuapp.com/api/venderproductos/'.$id); //otra manera
         $productosvender=json_decode($respuesta);
-        $vender = Http::get('http://127.0.0.1:8000/api/usuario/'.$id);
+        $vender = Http::get('http://sistemapedidosback.herokuapp.com/api/usuario/'.$id);
 
-        $respuesta = Http::post('http://127.0.0.1:8000/api/cotizacion', [
+        $respuesta = Http::post('http://sistemapedidosback.herokuapp.com/api/cotizacion', [
             'idc' => session('id'),
             'idv' => $id
         ]);
@@ -27,7 +27,7 @@ class CompradorController extends Controller
 
     public function add2detalle(Request $request){
         $importe = json_decode($request->cant)*json_decode($request->precio);
-        $respuesta = Http::post('http://127.0.0.1:8000/api/detalle', [
+        $respuesta = Http::post('http://sistemapedidosback.herokuapp.com/api/detalle', [
             'cant' => $request->cant,
             'producto' => $request->producto,
             'precio' => $request->precio,
@@ -35,21 +35,21 @@ class CompradorController extends Controller
             'folio' => $request->folio
         ]);
         //return $respuesta;
-        $respuesta = Http::get('http://127.0.0.1:8000/api/productoprovedor?idprovedor='.$request->idv);
+        $respuesta = Http::get('http://sistemapedidosback.herokuapp.com/api/productoprovedor?idprovedor='.$request->idv);
         $productosvender=json_decode($respuesta);
-        $vender = Http::get('http://127.0.0.1:8000/api/usuario/'.$request->idv);
-        $detalle2 = Http::get('http://127.0.0.1:8000/api/detalle/'.$request->folio);
+        $vender = Http::get('http://sistemapedidosback.herokuapp.com/api/usuario/'.$request->idv);
+        $detalle2 = Http::get('http://sistemapedidosback.herokuapp.com/api/detalle/'.$request->folio);
         $detalle=json_decode($detalle2);
-        $respuesta = Http::get('http://127.0.0.1:8000/api/cotizacion');
+        $respuesta = Http::get('http://sistemapedidosback.herokuapp.com/api/cotizacion');
         $res = json_decode($respuesta);
         $dato=$res[0];
         return view('comprador.ver', compact('productosvender','vender','dato','detalle'));
     }
 
     public function enviarcotiz(Request $request){
-        $respuesta = Http::get('http://127.0.0.1:8000/api/detalle/'.$request->folio);
+        $respuesta = Http::get('http://sistemapedidosback.herokuapp.com/api/detalle/'.$request->folio);
         $detalle = json_decode($respuesta);
-        $respuesta = Http::get('http://127.0.0.1:8000/api/usuario/'.$request->idprovedor);
+        $respuesta = Http::get('http://sistemapedidosback.herokuapp.com/api/usuario/'.$request->idprovedor);
         $vendedor = json_decode($respuesta);
         $folio=$request->folio;
         $pdf=\PDF::loadView('pdf.prueba', compact('detalle','vendedor','folio'));
@@ -65,12 +65,12 @@ class CompradorController extends Controller
     }
 
     public function verpedidos(){
-        $respuesta = Http::get('http://127.0.0.1:8000/api/cotizacion/'.session('id'));
+        $respuesta = Http::get('http://sistemapedidosback.herokuapp.com/api/cotizacion/'.session('id'));
         $listapedidos=json_decode($respuesta);
         return view('comprador.pedidos', compact('listapedidos'));
     }
     public function verdetalles($id){
-        $respuesta = Http::get('http://127.0.0.1:8000/api/detalle/'.$id);
+        $respuesta = Http::get('http://sistemapedidosback.herokuapp.com/api/detalle/'.$id);
         $listadetalles=json_decode($respuesta);
         //return $listadetalles;
         return view('comprador.detalles', compact('listadetalles','id'));
