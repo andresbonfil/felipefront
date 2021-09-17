@@ -1,3 +1,4 @@
+<?php $totalo=0; ?>
 @extends('layouts.plantilla')
 @section('titulo','COMPRADOR')
 
@@ -22,8 +23,13 @@ Detalle de pedido # : {{$id}} de :
         <td>{{$lista->precio}}</td>
         <td>{{$lista->importe}}</td>
     </tr>
+    <?php $totalo+=$lista->importe ?>
   @endforeach
-  
+  <tr>
+        <td>*</td><td colspan='2'>*********</td><td colspan='2'><b>TOTAL $<?php echo $totalo; ?></b></td>
+  </tr> 
+  <tr><td colspan="4">Solicitud de :: {{$comprador['nombre']}}</td></tr>
+  <tr><td colspan="4">Correo de contacto :: {{$comprador['email']}}</td></tr>
   </table>
 
   <H1><a href="{{route('logout')}}">CERRAR SESION</a></H1>

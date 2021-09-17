@@ -10,7 +10,7 @@ use Illuminate\Queue\SerializesModels;
 class cotizaEmail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $subject = "Cotizacion notificacion";
+    public $subject = "Cotizacion";
     //protected $datos;
     public $pdf;
     

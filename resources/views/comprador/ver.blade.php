@@ -8,38 +8,42 @@ Bienvenido comprador:
 @endsection
 @section('articulo2')
 <table border=1>
-    <tr><th colspan="9">Productos de : [ {{$vender['nombre']}} ] </th></tr>
+    <tr><th colspan="9">Productos de : [ {{$datosvendedor['nombre']}} :: {{$datosvendedor['email']}} ]</th></tr>
     <tr>
       <th>nombre</th><th>descripcion</th><th>pu</th><th>pe</th><th>cpe</th>
-      <th>dis</th><th>cant</th><th>agregar</th>
+      <th>disp</th><th>cant</th><th>agregar</th>
     </tr>
-  @foreach($productosvender as $lista)
+  @isset($productosvendedor)
+  @foreach($productosvendedor as $lista)
     <tr><form action="{{route('add2detalle')}}" method="POST"> @csrf
         <td>{{$lista->nombre}}</td>
         <td>{{$lista->descripcion}}</td>
         <td>{{$lista->pu}}</td>
         <td>{{$lista->pe}}</td>
         <td>{{$lista->cpe}}</td>
-        <td>{{$lista->disponible}}</td>
+        <td>{{$lista->disp}}</td>
         <td>
-            <input name="cant" type="number" size="3" min="1" onchange="multiplicar()">
+            <input name="cant" type="number" size="3" min="1" required>
             <input name="producto" type="hidden" value="{{$lista->nombre}}">
-            <input name="precio" type="hidden" value="{{$lista->pu}}">
-            <input name="folio" type="hidden" value="{{$dato->folio ?? $dato->id}}">
-            <input name="idv" type="hidden" value="{{$lista->idprovedor}}">
+            <input name="pu" type="hidden" value="{{$lista->pu}}">
+            <input name="pe" type="hidden" value="{{$lista->pe}}">
+            <input name="cpe" type="hidden" value="{{$lista->cpe}}">
+            <input name="folio" type="hidden" value="{{$folio}}">
+            <input name="idv" type="hidden" value="{{$lista->idv}}">
         </td>
         <td><input type="submit" value="agregar"></td>
     </form></tr>
   @endforeach
+  @endisset
   
   </table>
 
 <br>
 
 <table border=1>
-    <tr><th colspan="5">NOTA REMISION - - FOLIO NO. {{$dato->folio ?? $dato->id}}</th></tr>
+    <tr><th colspan="5">NOTA REMISION - - FOLIO NO. {{$folio}}</th></tr>
     <tr>
-      <th>cant</th><th>producto</th><th>precio</th><th>importe</th>
+      <th>cant</th><th>producto</th><th>precio</th><th>importe</th><th>quitar</th>
     </tr>
     @isset($detalle)
     
@@ -49,18 +53,25 @@ Bienvenido comprador:
             <td>{{$list->producto}}</td>
             <td>{{$list->precio}}</td>
             <td>{{$list->importe}}</td>
+            <td><form action="{{route('deldetalle')}}" method="get">
+            <input type="hidden" name="id" value="{{$list->id}}">
+            <input type="hidden" name="folio" value="{{$folio}}">
+            <input type="hidden" name="idv" value="{{$datosvendedor['id']}}">
+            <button>(-)</button>
+            </form></td>
         </tr>
         <?php $totalo+=$list->importe ?>
          @endforeach
     @endisset  
     <tr>
-        <td>*</td><td>*********</td><td colspan='2'>total $<?php echo $totalo; ?></td>
+        <td>*</td><td colspan='2'>*********</td><td colspan='2'><b>TOTAL $<?php echo $totalo; ?></b></td>
     </tr> 
     <tr>
-        <td colspan="5">Enviar esta cotización: <form action="{{route('enviarcotiz')}}" method="get">
-        <input type="hidden" name="folio" value="{{$dato->folio ?? $dato->id}}">
-        <input type="hidden" name="idprovedor" value="{{$lista->idprovedor}}">
-        <input type="submit">
+        <td colspan="5">Enviar esta cotización:
+        <form action="{{route('enviarcotiz')}}" method="get">
+        <input type="hidden" name="folio" value="{{$folio}}">
+        <input type="hidden" name="idv" value="{{$datosvendedor['id']}}">
+        <input type="submit" value="Generar pedido">
         </form></td>
     </tr>
   
@@ -72,12 +83,3 @@ Bienvenido comprador:
 <a href="#">Mis redes sociales</a>
 <form action="{{route('inicioPost')}}" method="post">@csrf <input type="submit" value="regresar"></form> 
 @endsection
-<script>
-
-function multiplicar(){
-	var _precio=document.getElementById("precio");
-	var _cantidad=document.getElementById("cant");
-	var _importe=document.getElementById("importe");
-	_importe.value=_precio.value*_cantidad.value;
-}
-</script>

@@ -7,7 +7,7 @@ Pedidos de :
 @endsection
 @section('articulo2')
 <table border=1>
-  <tr><th colspan="5"> Lista de pedidos:</th></tr>
+  <tr><th colspan="4"> Lista de pedidos:</th></tr>
   <tr>
     <th>folio</th>
     <th>fecha</th>  
@@ -16,7 +16,7 @@ Pedidos de :
   @foreach($listapedidos as $lista)
     <tr>
         <td>{{$lista->id}}</td>
-        <td>{{$lista->created_at}}</td>
+        <td>{{date('d-m-Y', strtotime($lista->created_at));}}</td>
         <td><a href="{{route('detallesvendor', $lista->id)}}">ver</a></td>
     </tr>
   @endforeach
@@ -30,4 +30,5 @@ Pedidos de :
 
 @section('piedepagina')
 <a href="#">Mis redes sociales</a>
+<form action="{{route('inicioPost')}}" method="post">@csrf <input type="submit" value="regresar"></form>
 @endsection

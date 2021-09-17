@@ -12,12 +12,17 @@ Pedidos de :
     <th>folio</th>
     <th>fecha</th>  
     <th>detalle</th> 
+    <th>eliminar</th> 
   </tr>
   @foreach($listapedidos as $lista)
     <tr>
         <td>{{$lista->id}}</td>
-        <td>{{$lista->created_at}}</td>
+        <td>{{date('d-m-Y', strtotime($lista->created_at));}}</td>
         <td><a href="{{route('detalles', $lista->id)}}">ver</a></td>
+        <td><form action="{{route('delpedido')}}" method="get">
+            <input type="hidden" name="id" value="{{$lista->id}}">
+            <button>(-)</button>
+            </form></td>
     </tr>
   @endforeach
   
@@ -30,4 +35,5 @@ Pedidos de :
 
 @section('piedepagina')
 <a href="#">Mis redes sociales</a>
+<form action="{{route('inicioPost')}}" method="post">@csrf <input type="submit" value="regresar"></form>
 @endsection
